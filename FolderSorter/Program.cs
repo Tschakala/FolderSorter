@@ -19,6 +19,10 @@ namespace FolderSorter
             if (args.Length < 1)
                 path = AskAndGetUsersPath();
 
+            ReadFolder readFolder = new ReadFolder(path);
+
+            readFolder.GetAllItems();
+
             Console.WriteLine(path);
         }
         
@@ -29,12 +33,11 @@ namespace FolderSorter
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = folderBrowserDialog.SelectedPath;
-                // Do something with the file
-
+                
                 return filePath;
             }
 
-            return "C:";
+            return null;
         }
     }
 }

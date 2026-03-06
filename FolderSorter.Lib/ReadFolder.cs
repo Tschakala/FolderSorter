@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,9 +30,8 @@ namespace FolderSorter.Lib
 
         List<Item> AllItems = new List<Item>();
 
-        public void ReadFolderItems(string folderPath)
+        public ReadFolder(string folderPath)
         {
-
             FolderPath = folderPath;
 
             AddItemsToList();
@@ -44,6 +44,14 @@ namespace FolderSorter.Lib
             foreach (string file in files)
             {
                 AllItems.Add(new Item(Path.GetFileName(file), new FileInfo(file).Length, Path.GetExtension(file), File.GetCreationTime(file).ToString()));
+            }
+        }
+
+        public void GetAllItems()
+        {
+            foreach (Item item in AllItems)
+            {
+                Console.WriteLine(item.GetName + "\t" + item.GetSize + "\t" + item.GetType + "\t" + item.GetCreatedDate + "\n");
             }
         }
     }
