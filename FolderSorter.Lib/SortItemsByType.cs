@@ -15,7 +15,5 @@ namespace FolderSorter.Lib
         {
             
         }
-
-
     }
 }

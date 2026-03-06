@@ -47,12 +47,9 @@ namespace FolderSorter.Lib
             }
         }
 
-        public void GetAllItems()
+        public List<Item> GetAllItems()
         {
-            foreach (Item item in AllItems)
-            {
-                Console.WriteLine(item.GetName + "\t" + item.GetSize + "\t" + item.GetType + "\t" + item.GetCreatedDate + "\n");
-            }
+            return AllItems;
         }
     }
 }
