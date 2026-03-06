@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="FolderSorter.Lib/FolderSorter.Lib.csproj" />
-  <Project Path="FolderSorter/FolderSorter.csproj" />
+  <Project Path="FolderSorter.Lib/FolderSorter.Lib.csproj" Id="df70cca2-3bbf-4f97-ba77-90c308aa4c6d" />
+  <Project Path="FolderSorter/FolderSorter.csproj" Id="efc80594-ea7e-49cb-bf95-f868bf4b31e1" />
 </Solution>
