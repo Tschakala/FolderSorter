@@ -12,48 +12,6 @@ namespace FolderSorter
 {
     internal class Program
     {
-
-
-
-        public static string FormatBytes(long bytes)
-        {
-            string[] sizes = { "B", "KB", "MB", "GB", "TB" };
-
-            double len = bytes;
-            int order = 0;
-
-            while (len >= 1024 && order < sizes.Length - 1)
-            {
-                order++;
-                len /= 1024;
-            }
-
-            return $"{len:0.##} {sizes[order]}";
-        }
-
-
-        static List<string> SortItemsBySize(List<Item> items)
-        {
-            List<long> sizes = new List<long>();
-
-            for (int i = 0; i < items.Count; i++)
-            {
-                sizes.Add(items[i].GetSize);
-            }
-
-            sizes.Sort();
-
-            List<string> sizesSortet = new List<string>();
-
-            for (int i = 0; i < items.Count; i++)
-            {
-                sizesSortet.Add(FormatBytes(sizes[i]));
-            }
-
-            return sizesSortet;
-        }
-
-
         [STAThread]
         static void Main(string[] args)
         {
@@ -64,28 +22,29 @@ namespace FolderSorter
                 path = AskAndGetUsersPath();
             }
                 
-
             ReadFolder readFolder = new ReadFolder(path);
-
             List<Item> items = new List<Item>();
-
             items = readFolder.GetAllItems();
 
 
             bool wantToSortBySize = true;
+            bool WantToSortByType = false;
+            bool WantToSortByName = false;
+            bool WantToSortByCreatedDate = false;
 
 
             if (wantToSortBySize)
             {
+                SortItemsBySize sorted = new SortItemsBySize(items);
+
                 List<string> sizes = new List<string>();
-                sizes = SortItemsBySize(items);
+                sizes = sorted.GetSizesS;
 
                 for (int i = 0; i < items.Count; i++)
                 {
                     Console.WriteLine(sizes[i]);
                 }
             }
-
 
             Console.WriteLine(path);
         }
