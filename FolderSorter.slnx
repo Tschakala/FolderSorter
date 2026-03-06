@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="FolderSorter.Lib/FolderSorter.Lib.csproj" />
+  <Project Path="FolderSorter/FolderSorter.csproj" />
+</Solution>
