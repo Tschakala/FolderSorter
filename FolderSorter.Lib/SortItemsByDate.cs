@@ -8,5 +8,6 @@ namespace FolderSorter.Lib
 {
     internal class SortItemsByDate
     {
+
     }
 }
