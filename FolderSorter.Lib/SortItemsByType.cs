@@ -11,6 +11,7 @@ namespace FolderSorter.Lib
         string _type;
 
 
+
         public SortItemsByType(string name, long size, string type, string createdDate) : base(name, size, type, createdDate)
         {
             
