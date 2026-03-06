@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace FolderSorter.Lib
 {
-    public class SortItemsBySize : Item
+    public class SortItemsBySize
     {
         long _size;
+
 
         public long SetSize
         {
@@ -18,9 +19,8 @@ namespace FolderSorter.Lib
             }
         }
 
-        public SortItemsBySize(string name, long size, string type, string createdDate) : base(name, size, type, createdDate)
+        public SortItemsBySize()
         {
-
 
         }
     }
