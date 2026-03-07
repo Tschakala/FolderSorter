@@ -41,13 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SortItemsByDate.cs" />
-    <Compile Include="SortItemsByName.cs" />
+    <Compile Include="ClutterGenerator.cs" />
+    <Compile Include="IItemsSorter.cs" />
+    <Compile Include="ItemsSorterByDate.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadFolder.cs" />
-    <Compile Include="SortItemsBySize.cs" />
-    <Compile Include="SortItemsByType.cs" />
+    <Compile Include="FolderReader.cs" />
+    <Compile Include="ItemsSorterBySize.cs" />
+    <Compile Include="ItemsSorterByExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

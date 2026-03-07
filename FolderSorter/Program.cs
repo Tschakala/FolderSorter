@@ -21,32 +21,25 @@ namespace FolderSorter
             {
                 path = AskAndGetUsersPath();
             }
-                
-            ReadFolder readFolder = new ReadFolder(path);
+
+            if (path == null)
+                return;
+
+            //used for debugging, don't include into final product
+            //ClutterGenerator clutterGenerator = new ClutterGenerator();
+            //clutterGenerator.GenerateClutter(path, 50);
+
+            FolderReader readFolder = new FolderReader(path);
+            readFolder.AddItemsToList();
+
             List<Item> items = new List<Item>();
             items = readFolder.GetAllItems();
 
+            ItemsSorterByExtension itemsSorterByExtension = new ItemsSorterByExtension(path, items);
+            itemsSorterByExtension.Sort();
 
-            bool wantToSortBySize = true;
-            bool WantToSortByType = false;
-            bool WantToSortByName = false;
-            bool WantToSortByCreatedDate = false;
-
-
-            if (wantToSortBySize)
-            {
-                SortItemsBySize sorted = new SortItemsBySize(items);
-
-                List<string> sizes = new List<string>();
-                sizes = sorted.GetSizesS;
-
-                for (int i = 0; i < items.Count; i++)
-                {
-                    Console.WriteLine(sizes[i]);
-                }
-            }
-
-            Console.WriteLine(path);
+            //ItemsSorterBySize itemsSorterBySize = new ItemsSorterBySize(path, items);
+            //itemsSorterBySize.Sort();
         }
         
         static string AskAndGetUsersPath()

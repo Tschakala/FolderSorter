@@ -11,8 +11,9 @@ namespace FolderSorter.Lib
     {
         string _name;
         long _size;
-        string _type;
+        string _extension;      //file type
         string _createdDate;
+        string _path;
 
         public string GetName
         {
@@ -24,9 +25,9 @@ namespace FolderSorter.Lib
             get { return _size; }
         }
 
-        public string GetType
+        public string GetExtension
         {
-            get { return _type; }
+            get { return _extension; }
         }
 
         public string GetCreatedDate
@@ -34,12 +35,18 @@ namespace FolderSorter.Lib
             get { return _createdDate; }
         }
 
-        public Item(string name, long size, string type, string createdDate)
+        public string GetPath
+        {
+            get { return _path; }
+        }
+
+        public Item(string name, long size, string extension, string createdDate, string path)
         {
             _name = name;
             _size = size;
-            _type = type;
+            _extension = extension;
             _createdDate = createdDate;
+            _path = path;
         }
     }
 }

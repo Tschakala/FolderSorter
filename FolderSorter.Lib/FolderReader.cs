@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FolderSorter.Lib
 {
-    public class ReadFolder
+    public class FolderReader
     {
 
         string _folderPath;
@@ -30,11 +30,9 @@ namespace FolderSorter.Lib
 
         List<Item> AllItems = new List<Item>();
 
-        public ReadFolder(string folderPath)
+        public FolderReader(string folderPath)
         {
             FolderPath = folderPath;
-
-            AddItemsToList();
         }
 
         public void AddItemsToList()
@@ -43,7 +41,12 @@ namespace FolderSorter.Lib
 
             foreach (string file in files)
             {
-                AllItems.Add(new Item(Path.GetFileName(file), new FileInfo(file).Length, Path.GetExtension(file), File.GetCreationTime(file).ToString()));
+                string fileName = Path.GetFileName(file);
+
+                if (fileName == " " || fileName == "desktop.ini" || fileName == "")
+                    continue;
+
+                AllItems.Add(new Item(Path.GetFileName(file), new FileInfo(file).Length, Path.GetExtension(file), File.GetCreationTime(file).ToString(), Path.GetFullPath(file).ToString()));
             }
         }
 

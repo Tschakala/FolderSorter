@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace FolderSorter.Lib
 {
-    public class SortItemsByName
+    public interface IItemsSorter
     {
-
+        void Sort();
     }
 }
