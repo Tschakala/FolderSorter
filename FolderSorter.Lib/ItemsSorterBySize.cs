@@ -85,16 +85,17 @@ namespace FolderSorter.Lib
 
                 string currentItemPath = item.GetPath;
                 string sortDirPath = Path.Combine(_path, sizeGroup);        //sort folders
-                string finalItemPath = Path.Combine(sortDirPath, item.GetName); //final path of the item
+                string finalName = (FormatBytes(item.GetSize) + "  " + item.GetName + item.GetExtension);
+                string finalItemPath = Path.Combine(sortDirPath, finalName); //final path of the item
 
                 Directory.CreateDirectory(sortDirPath);
 
-                Console.WriteLine(item.GetSize + " ; " + sizeGroup);
+                Console.WriteLine(FormatBytes(item.GetSize) + " ; " + sizeGroup);
 
-                //if (!File.Exists(finalItemPath))
-                //{
-                //    File.Move(currentItemPath, finalItemPath);
-                //}
+                if (!File.Exists(finalItemPath))
+                {
+                    File.Move(currentItemPath, finalItemPath);
+                }
             }
         }
     }

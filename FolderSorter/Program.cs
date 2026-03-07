@@ -35,13 +35,32 @@ namespace FolderSorter
             List<Item> items = new List<Item>();
             items = readFolder.GetAllItems();
 
-            ItemsSorterByExtension itemsSorterByExtension = new ItemsSorterByExtension(path, items);
-            itemsSorterByExtension.Sort();
+            bool wantToSortByExtension = MessageBox.Show("Do you want to sort by extension?", "Sorting", MessageBoxButtons.YesNo) == DialogResult.Yes;
+            bool wantToSortBySize = false;
+            if (!wantToSortByExtension)
+            {
+                wantToSortBySize = MessageBox.Show("Do you want to sort by Size", "Sorting", MessageBoxButtons.YesNo) == DialogResult.Yes;
+            }
+
+            if (wantToSortByExtension)
+            {
+                ItemsSorterByExtension itemsSorterByExtension = new ItemsSorterByExtension(path, items);
+                itemsSorterByExtension.Sort();
+            }
+
+            if (wantToSortBySize)
+            {
+                ItemsSorterBySize itemsSorterBySize = new ItemsSorterBySize(path, items);
+                itemsSorterBySize.Sort();
+            }
+
+
+
 
             //ItemsSorterBySize itemsSorterBySize = new ItemsSorterBySize(path, items);
             //itemsSorterBySize.Sort();
         }
-        
+
         static string AskAndGetUsersPath()
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
