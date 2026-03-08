@@ -18,11 +18,11 @@ namespace FolderSorter.Lib
         {
             foreach (var currentItem in _items)
             {
-                string currentItemPath = currentItem.GetPath;
+                string currentItemPath = currentItem.Path;
 
-                string folderName = currentItem.GetExtension.Replace(".", "");   //remove dot(.) and spaces in the type
+                string folderName = currentItem.Extension.Replace(".", "");   //remove dot(.) and spaces in the type
                 string sortDirPath = Path.Combine(_path, folderName);        //sort folders
-                string finalFilePath = Path.Combine(sortDirPath, currentItem.GetName);
+                string finalFilePath = Path.Combine(sortDirPath, currentItem.Name);
 
                 Directory.CreateDirectory(sortDirPath);                     //create folder if it doesn't exist even if it does exist it won't throw an error
 

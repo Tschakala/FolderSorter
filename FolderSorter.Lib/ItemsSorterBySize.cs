@@ -36,9 +36,9 @@ namespace FolderSorter.Lib
             long largestSize = 0;
             foreach (var item in _items)
             {
-                if (item.GetSize > largestSize)
+                if (item.Size > largestSize)
                 {
-                    largestSize = item.GetSize;
+                    largestSize = item.Size;
                 }
             }
             return largestSize;
@@ -81,16 +81,16 @@ namespace FolderSorter.Lib
 
             foreach (Item item in _items)
             {
-                string sizeGroup = GetSizeGroup(item.GetSize, fileSizeStep);
+                string sizeGroup = GetSizeGroup(item.Size, fileSizeStep);
 
-                string currentItemPath = item.GetPath;
+                string currentItemPath = item.Path;
                 string sortDirPath = Path.Combine(_path, sizeGroup);        //sort folders
-                string finalName = (FormatBytes(item.GetSize) + "  " + item.GetName + item.GetExtension);
+                string finalName = (FormatBytes(item.Size) + "  " + item.Name + item.Extension);
                 string finalItemPath = Path.Combine(sortDirPath, finalName); //final path of the item
 
                 Directory.CreateDirectory(sortDirPath);
 
-                Console.WriteLine(FormatBytes(item.GetSize) + " ; " + sizeGroup);
+                Console.WriteLine(FormatBytes(item.Size) + " ; " + sizeGroup);
 
                 if (!File.Exists(finalItemPath))
                 {

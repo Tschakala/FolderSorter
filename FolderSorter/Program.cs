@@ -1,23 +1,53 @@
-﻿using FolderSorter.Lib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FolderSorter.Lib;
 
 namespace FolderSorter
 {
     internal class Program
     {
+
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        private const int SW_HIDE = 0;
+        private const int SW_SHOW = 5;
+
         [STAThread]
         static void Main(string[] args)
         {
+            var handle = GetConsoleWindow();
+            ShowWindow(handle, SW_HIDE);
+
+            string directoryOfExecutable = AppDomain.CurrentDomain.BaseDirectory;
+            ConfigManager configManager = new ConfigManager(directoryOfExecutable);
+            configManager.Initialize();
+
             string path = Directory.GetCurrentDirectory();
 
-            if (args.Length < 1)
+            if(args.Contains("-showconsole"))
+            {
+                ShowWindow(handle, SW_SHOW);
+            }
+
+            if (args.Contains("-settings"))
+            {
+                ConfigEditorForm configEditorForm = new ConfigEditorForm(configManager.ConfigFilePath, configManager.configValues);
+                configEditorForm.ShowDialog();
+                return;
+            }
+
+            if (!args.Contains("-silent"))
             {
                 path = AskAndGetUsersPath();
             }
@@ -26,39 +56,30 @@ namespace FolderSorter
                 return;
 
             //used for debugging, don't include into final product
-            //ClutterGenerator clutterGenerator = new ClutterGenerator();
-            //clutterGenerator.GenerateClutter(path, 50);
+            ClutterGenerator clutterGenerator = new ClutterGenerator();
+            clutterGenerator.GenerateClutter(path, 50);
 
             FolderReader readFolder = new FolderReader(path);
             readFolder.AddItemsToList();
 
             List<Item> items = new List<Item>();
             items = readFolder.GetAllItems();
+            
 
-            bool wantToSortByExtension = MessageBox.Show("Do you want to sort by extension?", "Sorting", MessageBoxButtons.YesNo) == DialogResult.Yes;
-            bool wantToSortBySize = false;
-            if (!wantToSortByExtension)
+            switch (configManager.configValues["sortby"])
             {
-                wantToSortBySize = MessageBox.Show("Do you want to sort by Size", "Sorting", MessageBoxButtons.YesNo) == DialogResult.Yes;
+                case "extension":
+                    ItemsSorterByExtension itemsSorterByExtension = new ItemsSorterByExtension(path, items);
+                    itemsSorterByExtension.Sort();
+                    break;
+                case "size":
+                    ItemsSorterBySize itemsSorterBySize = new ItemsSorterBySize(path, items);
+                    itemsSorterBySize.Sort();
+                    break;
+                default:
+                    MessageBox.Show("Invalid sorting method in config file. Please check the config file and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
             }
-
-            if (wantToSortByExtension)
-            {
-                ItemsSorterByExtension itemsSorterByExtension = new ItemsSorterByExtension(path, items);
-                itemsSorterByExtension.Sort();
-            }
-
-            if (wantToSortBySize)
-            {
-                ItemsSorterBySize itemsSorterBySize = new ItemsSorterBySize(path, items);
-                itemsSorterBySize.Sort();
-            }
-
-
-
-
-            //ItemsSorterBySize itemsSorterBySize = new ItemsSorterBySize(path, items);
-            //itemsSorterBySize.Sort();
         }
 
         static string AskAndGetUsersPath()

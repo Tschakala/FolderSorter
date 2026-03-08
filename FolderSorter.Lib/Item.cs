@@ -15,27 +15,27 @@ namespace FolderSorter.Lib
         string _createdDate;
         string _path;
 
-        public string GetName
+        public string Name
         {
             get { return _name; }
         }
 
-        public long GetSize
+        public long Size
         {
             get { return _size; }
         }
 
-        public string GetExtension
+        public string Extension
         {
             get { return _extension; }
         }
 
-        public string GetCreatedDate
+        public string CreatedDate
         {
             get { return _createdDate; }
         }
 
-        public string GetPath
+        public string Path
         {
             get { return _path; }
         }
